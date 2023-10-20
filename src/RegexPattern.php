@@ -6,9 +6,9 @@ class RegexPattern
 {
     public string $value;
 
-    public function __construct(string $body, ?string $modifiers = null) {//В регулярных выражениях служебными считаются следующие символы: . \ + * ? [ ^ ] $ ( ) { } = ! < > | : - #       //символ / не является служебным.       //$body = preg_quote($body, '/');
+    public function __construct(string $body, ?string $modifiers = null) {  //В регулярных выражениях служебными считаются следующие символы: . \ + * ? [ ^ ] $ ( ) { } = ! < > | : - #       //символ / не является служебным.       //$body = preg_quote($body, '/');
 
-        $this->value = ($modifiers) ? "|$body|$modifiers" : "|$body|";
+        $this->value = ($modifiers) ? "/$body/$modifiers" : "/$body/";
     }
 
     /**
