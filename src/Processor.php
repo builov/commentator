@@ -39,10 +39,14 @@ class Processor
 
 //        print_r($comments); exit;
 
+        echo 'комментариев: ' . count($comments[0]) . PHP_EOL;
+//        exit;
+
         /**
          * замена текста ссылки на текст коментария
          * @var  $link - ссылка на комментарий, должна содержать его номер
          */
+        $links = 0;
         foreach ($comments[0] as $key => $comment) {
             /** получение очищенного текста комментария */
             if (array_key_exists('3', $comments)) {
@@ -56,12 +60,24 @@ class Processor
             /** получение ссылки на текущий комментарий с соотв. номером */
             $link = str_replace($this->params['number_placeholder'], $comments[2][$key], $this->params['pattern_link']);
 
+//            echo $link . PHP_EOL;
+
+            /** если такое есть в тексте */
+            if (strpos($text, $link)) {
+                $links++;
+            }
+
             /** замена ссылки на комментарий */
             $text = str_replace($link, '[fn]' . $comment . '[/fn]', $text);
+
+//            /** замена ссылки на комментарий внутри комментария */
+//            $text = str_replace($link, $comments[2][$key] . ': ' . $comment, $text);
 
 //            echo $comment . PHP_EOL;
 //            echo $link . PHP_EOL;
         }
+
+        echo 'замен: ' . $links . PHP_EOL;
 
 //        echo $text;
 
